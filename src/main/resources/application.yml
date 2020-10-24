@@ -1,0 +1,55 @@
+### Eureka
+eureka:
+  url: ${REGISTRY_SERVICE_URL:http://localhost:8761/eureka}
+  region: projeto
+  name: MicroserviceServiceDiscovery
+  datacenter: "cloud"
+  shouldUseDns: false
+  instance:
+    appname: ${spring.application.name}
+    preferIpAddress: true
+#    hostname: ${HOSTNAME}.eureka
+    lease-renewal-interval-in-seconds: 30
+    lease-expiration-duration-in-seconds: 90
+    peer-node-read-timeout-ms: 10000
+  serviceUrl:
+    default: ${eureka.url}
+  server:
+    evictionIntervalTimerInMs: 3000
+    enableSelfPreservation: false
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: ${eureka.url}
+
+### Logging
+logging:
+  level:
+    com.netflix.discovery: 'INFO'
+    org.springframework.cloud: 'INFO'
+    com.netflix.eureka.registry: 'WARN'
+
+### Management
+management:
+  security:
+    enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+    metrics:
+      export:
+        prometheus:
+          enabled: true
+    endpoint:
+      metrics:
+        enabled: false
+      prometheus:
+        enabled: true
+
+### Server
+server:
+  port: ${info.application.port:8761}
+  compression:
+    enabled: true

@@ -1,0 +1,13 @@
+version: '3.4'
+services:
+  eureka-0:
+    container_name: eureka-0
+    image: eureka-0:v1
+    ports:
+     - "8761:8761"
+    networks:
+      - net-projeto-ms
+networks:
+   net-projeto-ms:
+     driver: bridge 
+   
